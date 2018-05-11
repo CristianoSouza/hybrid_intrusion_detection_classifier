@@ -37,9 +37,9 @@ cross.setIteration(1)
 
 cross.setPreprocessor(preprocessor)
 
-cross.setFilePath("../../../bases/sub_bases_train+_nslkdd/")
+cross.setFilePath("../../bases/sub_bases_train+_nslkdd/")
 
-cross.setResultPath("../../../results/complete_attribute/knn_brute_time/")
+cross.setResultPath("../../results/complete_attribute/knn_brute_time/")
 
 cross.setClassifier(knn_classifier)
 

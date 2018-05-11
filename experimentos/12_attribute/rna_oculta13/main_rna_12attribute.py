@@ -40,9 +40,9 @@ cross.setIteration(1)
 
 cross.setPreprocessor(preprocessor)
 
-cross.setFilePath("../../../bases/sub_bases_nslkdd_12attribute/")
+cross.setFilePath("../../bases/sub_bases_nslkdd_12_attribute/")
 
-cross.setResultPath("../../../results/12_attribute/rna_oculta_13_time/")
+cross.setResultPath("../../results/12_attribute/rna_oculta_13_time/")
 
 cross.setClassifier(rna_classifier)
 
