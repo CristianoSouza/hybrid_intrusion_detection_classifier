@@ -1,0 +1,31 @@
+valor grupo
+98.96	grupo1
+98.36	grupo1
+"3" 98.52 grupo1
+"4" 98.39 grupo1
+"5" 98.50 grupo1
+"6" 97.99 grupo1
+"7" 97.96 grupo1
+"8" 98.18 grupo1
+"9" 98.04 grupo1
+"10" 98.34 grupo1
+"11" 99.61 grupo2
+"12" 99.69 grupo2
+"13" 99.83 grupo2
+"14" 99.69 grupo2
+"15" 99.82 grupo2
+"16" 99.70 grupo2
+"17" 99.66 grupo2
+"18" 99.74 grupo2
+"19" 99.67 grupo2
+"20" 99.60 grupo2
+"21" 99.65 grupo3
+"22" 99.41 grupo3
+"23" 98.91 grupo3
+"24" 98.76 grupo3
+"25" 98.23 grupo3
+"26" 98.63 grupo3
+"27" 99.66 grupo3
+"28" 99.68 grupo3
+"29" 99.60 grupo3
+"30" 99.65 grupo3
