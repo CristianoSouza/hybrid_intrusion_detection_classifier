@@ -4,9 +4,13 @@ import os
 from sklearn import neighbors
 
 class KnnModule(object):
+	#conjuto de exemplos de treino
 	data_set_samples = []
+	#classes dos exemplos de treino
 	data_set_labels = []
+	#conjunto de exemplos de teste
 	test_data_set_samples = []
+	#classes dos exemplos de teste
 	test_data_set_labels = []
 	k_neighbors = 1
 	clf = None
@@ -14,10 +18,12 @@ class KnnModule(object):
 	def __init__(self):
 		print("init knn module")
 
+	#funcao que cria a base de exemplos do KNN
 	def buildExamplesBase(self):
 		self.clf = neighbors.KNeighborsClassifier(self.k_neighbors, weights='uniform', algorithm='brute')
 		self.clf.fit(self.data_set_samples, self.data_set_labels)
 
+	#funcao que realiza a classificacao dos exemplos
 	def run(self):
 		predictions = self.clf.predict(self.test_data_set_samples)
 		return predictions

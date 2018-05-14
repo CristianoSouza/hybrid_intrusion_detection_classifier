@@ -26,6 +26,8 @@ class EvaluateModule(object):
 	def __init__(self):
 		print("init")
 
+
+	#funcao para executar a avaliacao dos resultados
 	def run(self):
 		self.number_false_positives = 0
 		self.number_false_negatives = 0
@@ -35,111 +37,74 @@ class EvaluateModule(object):
 		self.acc_samples = 0
 		self.err_samples = 0
 
-		print("RUN evaluate method")
 		result_dataframe = DataSet.loadResult(self.result_path , self.iteration)
-	
-		print(result_dataframe)
-
+		
+		#obtem numero de classes diferentes existentes no atributos classe
 		self.classes = Preprocessor.getClassesPerColumns(self.test_data_set,'classe')
 
 		acc_classes = []
 		err_classes = []
-		print(self.test_data_set.values)
-		print(result_dataframe.values)
-		print(len(self.test_data_set.values))
-		#exit()
-		if(len(self.classes) <=2 ):
-			posicao_classe = len(result_dataframe.values[0]) -2
-			for i in range(0,len(result_dataframe.values)):
-				self.total_samples+= 1
-				print("Real: " + str(self.test_data_set.values[i,posicao_classe]) + " -- predito: " + str(result_dataframe.values[i,posicao_classe]))
-				if(self.test_data_set.values[i,posicao_classe] == '0' or self.test_data_set.values[i,posicao_classe] == 0 ):
-					if (result_dataframe.values[i,posicao_classe] == 0 or result_dataframe.values[i,posicao_classe] == '0'):
-						#print("FALSO E CLASSIFICOU COMO FALSO")
-						self.number_true_negatives+=1
-						self.acc_samples+=1
-					else:
-						#print("FALSO E CLASSIFICOU COMO VERDADEIRO")
-						self.number_false_positives+=1
-						self.err_samples+=1 
 
-				elif(self.test_data_set.values[i,posicao_classe] == '1' or self.test_data_set.values[i,posicao_classe] == 1):
-					if (result_dataframe.values[i,posicao_classe] == 1 or result_dataframe.values[i,posicao_classe] == '1'):
-						#print("VERDADEIRO E CLASSIFICOU COMO VERDADEIRO")
-						self.number_true_positives+=1
-						self.acc_samples+=1
-					else:
-						#print("VERDADEIRO E CLASSIFICOU COMO FALSO")
-						self.number_false_negatives+=1
-						self.err_samples+=1 
+		#posicao do atributo "classe" no vetor
+		posicao_classe = len(result_dataframe.values[0]) -2
 
-			arquivoMatriz = open(self.result_path + 'Matriz.txt', 'a+') 
-			textoMatriz = str(self.number_true_positives) + """,""" + str(self.number_false_positives) + ""","""+ str(self.number_false_negatives) + """,""" + str(self.number_true_negatives) + """
+		for i in range(0,len(result_dataframe.values)):
+			self.total_samples+= 1
+			#print("Real: " + str(self.test_data_set.values[i,posicao_classe]) + " -- predito: " + str(result_dataframe.values[i,posicao_classe]))
+			if(self.test_data_set.values[i,posicao_classe] == '0' or self.test_data_set.values[i,posicao_classe] == 0 ):
+				if (result_dataframe.values[i,posicao_classe] == 0 or result_dataframe.values[i,posicao_classe] == '0'):
+					#print("FALSO E CLASSIFICOU COMO FALSO")
+					self.number_true_negatives+=1
+					self.acc_samples+=1
+				else:
+					#print("FALSO E CLASSIFICOU COMO VERDADEIRO")
+					self.number_false_positives+=1
+					self.err_samples+=1 
+
+			elif(self.test_data_set.values[i,posicao_classe] == '1' or self.test_data_set.values[i,posicao_classe] == 1):
+				if (result_dataframe.values[i,posicao_classe] == 1 or result_dataframe.values[i,posicao_classe] == '1'):
+					#print("VERDADEIRO E CLASSIFICOU COMO VERDADEIRO")
+					self.number_true_positives+=1
+					self.acc_samples+=1
+				else:
+					#print("VERDADEIRO E CLASSIFICOU COMO FALSO")
+					self.number_false_negatives+=1
+					self.err_samples+=1 
+
+		#arquivos para salvar informacoes resumidas das k iteracoes do cross-validation (cada linha representa uma iteracao)
+		arquivoMatriz = open(self.result_path + 'Matriz.txt', 'a+') 
+		#salva no formato: VP, FP, FN, VN
+		textoMatriz = str(self.number_true_positives) + """,""" + str(self.number_false_positives) + ""","""+ str(self.number_false_negatives) + """,""" + str(self.number_true_negatives) + """
 """  
-			arquivoMatriz.write(textoMatriz) 
-			arquivoMatriz.close()
+		arquivoMatriz.write(textoMatriz) 
+		arquivoMatriz.close()
 
-			arquivoTempo = open(self.result_path + 'tempo.txt', 'a+') 
-			textoTempo = str(self.tempo_execucao) + """,""" + str(self.training_time) + ""","""+ str(self.test_time) +  """
+		arquivoTempo = open(self.result_path + 'tempo.txt', 'a+') 
+		# salva no formato: tempo execucao completo, tempo treino, tempo teste
+		textoTempo = str(self.tempo_execucao) + """,""" + str(self.training_time) + ""","""+ str(self.test_time) +  """
 """  
-			arquivoTempo.write(textoTempo) 
-			arquivoTempo.close()
+		arquivoTempo.write(textoTempo) 
+		arquivoTempo.close()
 
-			arquivoInfos = open(self.result_path + 'infos.txt', 'a+') 
-			textoInfos = str(self.total_samples) + """,""" + str(self.acc_samples) + ""","""+ str(self.err_samples) +  """,""" + str((100/float(self.total_samples)) * self.acc_samples) + """,""" +  str((100/float(self.total_samples)) * self.err_samples) + """
+		arquivoInfos = open(self.result_path + 'infos.txt', 'a+') 
+		#salva no formato: total exemplos, total exemplos corretamento classficados, total exemplos erroneamente classificados, % exemplos corretamente classificados (acuracia), % exemplos erroneamente classificados (taxa de erro)
+		textoInfos = str(self.total_samples) + """,""" + str(self.acc_samples) + ""","""+ str(self.err_samples) +  """,""" + str((100/float(self.total_samples)) * self.acc_samples) + """,""" +  str((100/float(self.total_samples)) * self.err_samples) + """
 """  
-			arquivoInfos.write(textoInfos) 
-			arquivoInfos.close()
+		arquivoInfos.write(textoInfos) 
+		arquivoInfos.close()
 
-
-			arquivo = open(self.result_path + 'final_info_' + str(self.iteration) + '.txt', 'w') 
-			texto = """		MATRIZ DE CONFUSAO
-	             Predicao      
-			 ATAQUE    NORMAL  
-		   |--------||--------|
-	ATAQUE |   """ + str(self.number_true_positives) + """    ||   """+ str(self.number_false_negatives) + """    |
-		   |--------||--------|
-	NORMAL |   """+ str(self.number_false_positives) + """    ||   """+ str(self.number_true_negatives) + """    |
-		   |--------||--------|
-			"""
-		else:
-			posicao_classe = len(result_dataframe.values[0]) -2
-			arquivo = open(self.result_path + 'final_info_' + str(self.iteration) + '.txt', 'w') 
-			texto = """		MATRIZ DE CONFUSAO
-	             Predicao      
-			 ACC    ERR  
-|--------||--------|
-
-"""	
-			for i in range(0,len(self.classes)):
-				acc_classes.append(0)
-				err_classes.append(0)
-			for i in range(0,len(result_dataframe.values)):
-				print(self.test_data_set.values[i,posicao_classe])
-				print(result_dataframe.values[i,posicao_classe])
-				#exit()
-				self.total_samples+= 1
-				print("Real: " + str(self.test_data_set.values[i,posicao_classe]) + " -- predito: " + str(result_dataframe.values[i,posicao_classe]))
-
-				if(self.test_data_set.values[i,posicao_classe] == "normal"):
-					if (result_dataframe.values[i,posicao_classe] ==  "normal"):
-						acc_classes[0]+=1
-						self.acc_samples+=1
-					else:
-						err_classes[0]+=1
-						self.err_samples+=1 
-				elif(self.test_data_set.values[i,posicao_classe] != "normal"):
-					if(result_dataframe.values[i,posicao_classe] != "normal"):
-						acc_classes[1]+=1
-						self.acc_samples+=1
-					else:
-						err_classes[1]+=1
-						self.err_samples+=1 
-
-			for i in range(0,len(acc_classes)):		
-				texto+=  """ 	|   """ + str(acc_classes[i]) + """    || 	""" + str(err_classes[i]) + """ | 		
-|--------||--------|
-"""
+		#salva matriz de confusao no arquivo final_info de cada iteracao
+		arquivo = open(self.result_path + 'final_info_' + str(self.iteration) + '.txt', 'w') 
+		texto = """		MATRIZ DE CONFUSAO
+             Predicao      
+		 ATAQUE    NORMAL  
+	   |--------||--------|
+ATAQUE |   """ + str(self.number_true_positives) + """    ||   """+ str(self.number_false_negatives) + """    |
+	   |--------||--------|
+NORMAL |   """+ str(self.number_false_positives) + """    ||   """+ str(self.number_true_negatives) + """    |
+	   |--------||--------|
+		"""
+	
 		texto+= """TOTAL DE EXEMPLOS: """ + str(self.total_samples) + """ 	|   
 |--------||--------|
 """
@@ -161,6 +126,7 @@ class EvaluateModule(object):
 """
 		texto+="""TEMPO DE TESTE: """ + str(self.test_time) + """  ||| 
 """
+		#recupera quantidade de exmemplos que foram submtidos ao KNN
 		if (DataSet.checkPathBoolean(self.result_path + "../knn_classification/")):
 			data_set_knn = DataSet.loadSubDataSet( self.result_path + "../knn_classification/cross_"+ str(self.iteration) + "_final_result.csv") 
 			texto+= """Exemplos submetidos a segunda classificacao: """ + str(len(data_set_knn))
@@ -169,7 +135,6 @@ class EvaluateModule(object):
 """  
 			arquivoKNN.write(textoKNN) 
 			arquivoKNN.close()
-			print(len(data_set_knn))
 		arquivo.write(texto) 
 		arquivo.close()
 	

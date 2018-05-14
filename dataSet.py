@@ -13,18 +13,11 @@ class DataSet(object):
 	def __init__(self):
 		print "init"
 
-	def setFileName(self, file_name):
-		self.file_name = file_name
-
-	def setFilePath(self, file_path):
-		self.file_path = file_path
-
-	def loadData(self):
+	#funcao para carregar base de dados
+	def loadData(self, k):
 		self.dataframe_data_set = pandas.read_csv("bases/" + self.file_name)
-		self.partitionDataSet()
-
-	def getDataSet(self):
-		return self.data_set
+		#funcao para particionar a base de dados em K conjuntos de modo aleatorio
+		self.partitionDataSet(k)
 
 	def selectExamples(self):
 		lista = range(0, self.dataframe_data_set.shape[0])
@@ -90,9 +83,10 @@ class DataSet(object):
 """  
 				arquivo.write(texto) 
 				arquivo.close()
-
-	def partitionDataSet(self):
-		self.partition_size = (self.dataframe_data_set.shape[0] / 10)
+	
+	#funcao para particionar a base de dados em K conjuntos de modo aleatorio
+	def partitionDataSet(self, k):
+		self.partition_size = (self.dataframe_data_set.shape[0] / k)
 		self.selectExamples()
 
 	@classmethod
@@ -138,8 +132,13 @@ class DataSet(object):
 		if (os.path.exists(file_path)):
 			return True
 		else:
-		return False
+			return False
 
+	def setFileName(self, file_name):
+		self.file_name = file_name
 
+	def setFilePath(self, file_path):
+		self.file_path = file_path
 
- 
+	def getDataSet(self):
+		return self.data_set

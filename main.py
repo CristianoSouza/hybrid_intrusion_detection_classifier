@@ -21,9 +21,9 @@ dts = DataSet()
 dts.setFilePath("bases/sub_bases_nslkdd_20attribute/")
 #dts.setFileName("base_iris.csv")
 #dts.setFileName("SmallTrainingSet.csv")
-#dts.setFileName("winequality-red.csv")
+##dts.setFileName("winequality-red.csv")
 #dts.setFileName("NSL_KDD-master/20PercentTrainingSet.csv")
-#dts.setFileName("NSL_KDD-master/KDDTrain+binary_class.csv")
+dts.setFileName("NSL_KDD-master/KDDTrain+binary_class.csv")
 #dts.setFileName("NSL_KDD-master/SmallTrainingSet.csv")
 #dts.setFileName("NSL_KDD-master/SmallTrainingSetFiveClass.csv")
 
@@ -31,12 +31,10 @@ dts.setFilePath("bases/sub_bases_nslkdd_20attribute/")
 
 
 #print("load data")
-#dts.loadData()
+#ts.loadData(10)
 
 
 #CONFIGURACAO DO KNN
-
-
 knn = KnnModule()
 knn.setKNeighbors(1)
 knn_classifier = KnnClassifier()
@@ -44,29 +42,10 @@ knn_classifier.setKnn(knn)
 
 #CONFIGURACAO DA REDE NEURAL 
 rna = RnaModule()
-
-
-
-
-rna.setNumberNeuronsImputLayer(6)
-#rna.setNumberNeuronsImputLayer(4)
-rna.setActivationFunctionImputLayer("tanh")
-rna.setImputDimNeurons(6)
-#rna.setImputDimNeurons(4)
-rna.setNumberNeuronsHiddenLayer(6)
-
-
-rna.setNumberNeuronsImputLayer(12)
-#rna.setNumberNeuronsImputLayer(4)
+rna.setNumberNeuronsImputLayer(41)
 rna.setActivationFunctionImputLayer("tanh")
 rna.setImputDimNeurons(41)
-#rna.setImputDimNeurons(4)
-
 rna.setNumberNeuronsHiddenLayer(41)
-
-
-
-
 rna.setActivationFunctionHiddenLayer("tanh")
 rna.setNumberNeuronsOutputLayer(1)
 rna.setActivationFunctionOutputLayer("tanh")
@@ -75,12 +54,8 @@ rna_classifier.setRna(rna)
 
 #METODO HIBRIDO 
 hybrid_classifier = HybridClassifier()
-#hybrid_classifier.setLowerThreshold(-0.8)
-#hybrid_classifier.setUpperThreshold(0.8)
 hybrid_classifier.setPercentilFaixaSup(25)
 hybrid_classifier.setPercentilFaixaInf(100)
-#hybrid_classifier.setLimiteFaixaSup(0)
-#hybrid_classifier.setLimiteFaixaInf(0)
 hybrid_classifier.setRna(rna)
 hybrid_classifier.setKnn(knn)
 
@@ -96,7 +71,7 @@ cross = CrossValidation()
 
 #DEFINIR A ITERACAO QUE O CROSS VALIDATION ESTA
 cross.setIteration(1)
-
+cross.setK(10)
 cross.setPreprocessor(preprocessor)
 #cross.setFilePath("bases/sub_bases_20_nslkdd/")
 #cross.setFilePath("bases/sub_bases_train+_nslkdd/")

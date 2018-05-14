@@ -14,9 +14,13 @@ from keras.callbacks import EarlyStopping
 
 
 class RnaModule(object):
+	#conjuto de exemplos de treino
 	data_set_samples = []
+	#classes dos exemplos de treino
 	data_set_labels = []
+	#conjunto de exemplos de teste
 	test_data_set_samples = []
+	#classes dos exemplos de teste
 	test_data_set_labels = []
 
 	number_neurons_imput_layer = 0
@@ -25,6 +29,7 @@ class RnaModule(object):
 
 	imput_dim_neurons = 0
 
+	#funcoes de ativacao dos neuronios de cada camada
 	activation_function_imput_layer = "relu"
 	activation_function_hidden_layer = "relu"
 	activation_function_output_layer = "sigmoid"
@@ -34,6 +39,7 @@ class RnaModule(object):
 	def __init__(self):
 		print("init rna module")
 
+	#funcao para criar a rna para abordagem simples
 	def generateModel(self):
 		self.model = Sequential()
 		self.model.add(Dense(self.number_neurons_imput_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_imput_layer))
@@ -42,9 +48,12 @@ class RnaModule(object):
 	
 		self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 		csv_logger = CSVLogger('training.log')
+		
+		#funcao para interromper treinamento quando o erro for suficientemente pequeno
 		early_stopping = EarlyStopping(monitor='loss',patience=20)
                 fit = self.model.fit(self.data_set_samples, self.data_set_labels, epochs=500, verbose=2, callbacks=[early_stopping])
 
+    #funcao para criar a rna para a abordagem hibrida
 	def generateHybridModel(self):
 		self.model = Sequential()
 		self.model.add(Dense(self.number_neurons_imput_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_imput_layer))
@@ -53,20 +62,26 @@ class RnaModule(object):
 	
 		self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 		csv_logger = CSVLogger('training.log')
+		#funcao para interromper treinamento quando o erro for suficientemente pequeno
 		early_stopping = EarlyStopping(monitor='loss', patience=20)
 
 		fit = self.model.fit(self.data_set_samples, self.data_set_labels, nb_epoch=500, verbose=2, callbacks=[early_stopping])
-		# with a Sequential model
+
+		#obter valores da camada de saida da ultima iteracao do treinamento
 		get_3rd_layer_output = K.function([self.model.layers[0].input], [self.model.layers[2].output])
 		layer_output = get_3rd_layer_output([self.data_set_samples])[0]
+
+
 		predictions = self.model.predict_classes(self.data_set_samples)
 	
 		return layer_output, predictions, fit
 
+	#funcao utilizada para retornar o resultado da classificacao em termos de -1 a 1 (utilizada para a abordagem hibrida)
 	def predict(self):
 		predictions = self.model.predict(self.test_data_set_samples)
 		return predictions
 
+	#funcao utilizada para retornar o resultado da classificacao em 1 ou 0(utilizada para a abordagem simples)
 	def predictClasses(self):
 		predictions = self.model.predict_classes(self.test_data_set_samples)
 		return predictions

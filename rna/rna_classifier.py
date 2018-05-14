@@ -8,14 +8,21 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/..")
 from dataSet import DataSet
 
 class RnaClassifier(object):
-
+	#conjunto de dados de treino
 	data_set = None
+	#conjunto de dados de teste
 	test_data_set = None
+	
 	rna = None
 	predictions = None
+	
+	#iteracao do processo de cross-validation
 	iteration = 0
+
 	training_time = 0
 	test_time = 0
+
+	#pasta para serem salvos os arquivos de resultados, variavel pode ser setada no arquivo main.py
 	result_path = ""
 
 	def __init__(self):
@@ -27,14 +34,18 @@ class RnaClassifier(object):
 		self.rna.setDataSet(self.data_set)
 		self.rna.setTestDataSet(self.test_data_set)
 		
+		#funcao para gerar o modelo e treina-lo
 		self.rna.generateModel()
+
 		self.training_time = time.time() - training_time_start
 
 		test_time_start = time.time()
+		#funcao para realizar a classificacao dos exemplos
 		self.predictions = self.rna.predictClasses()
 		self.test_time = time.time() - test_time_start
 		self.saveResults()
 
+	#salva os resultados das classificacoes na pasta definida no arquivo main.py
 	def saveResults(self):
 		for i in range(0,len(self.predictions)):
 			self.test_data_set.set_value(i,'classe',self.predictions[i])

@@ -11,6 +11,7 @@ class Preprocessor(object):
 	def __init__(self):
 		print "init"
 
+	#Funcao para transfmormar atributos categoricos em inteiros
 	def transformCategory(self):
 		le = LabelEncoder()
 		for col in self.columns_category:
@@ -24,6 +25,7 @@ class Preprocessor(object):
 		print(self.classes)
 		return self.data_set, self.test_data_set 
 
+	#funcao para obter quantidade de classes existentes em determinado atributo
 	@classmethod
 	def getClassesPerColumns(self, data_set, column):
 		le = LabelEncoder()
