@@ -35,7 +35,7 @@ class ClusteredDensityKnnModule(object):
 		#print(self.data_set_labels)'''
 		self.getDistanceDensity(self.data_set_samples)
 
-		print(self.distance)
+		print((self.distance))
 		exit()
 
 		clf = neighbors.KNeighborsClassifier(self.k_neighbors)
@@ -45,13 +45,13 @@ class ClusteredDensityKnnModule(object):
 		print("INICIANDO FASE DE TESTE...")
 		self.findClusters(self.test_data_set_samples, self.data_set_samples)
 		self.findNearestNeighbors(self.test_data_set_samples)
-		print(self.distance)
+		print((self.distance))
 
 
 		
 		predictions = clf.predict(self.distance)
 		print(predictions)
-		print(self.distance)
+		print((self.distance))
 		#exit()
 		return predictions
 
@@ -112,7 +112,7 @@ class ClusteredDensityKnnModule(object):
 
 		for i in range(0,len(data_set)):
 			dist = 0
-			print("exemplo: ", i+1)
+			print(("exemplo: ", i+1))
 			for j in distance_clusters[i]:
 				#print("Distancia para cluster: ", j )
 				dist+= j
@@ -160,7 +160,7 @@ class ClusteredDensityKnnModule(object):
 					print("original", data_set[self.indices[i][j]])
 					print("distancia neighbor", neighbor[0][0][1])
 					print("Distancia: ", self.distance[self.indices[i][j]])'''
-					print(self.indices[i][j])
+					print((self.indices[i][j]))
 
 			else:
 				clf = neighbors.NearestNeighbors(n_neighbors=1)
@@ -190,13 +190,13 @@ class ClusteredDensityKnnModule(object):
 
 	def setDataSetClustering(self, data_set):
 		self.data_set_samples = data_set.values[:,0:(len(data_set.values[0])-1)]
-		print(self.data_set_samples)
+		print((self.data_set_samples))
 
 	def setDataSet(self, data_set):
 		print(data_set)
 		self.data_set_samples = data_set.values[:,0:(len(data_set.values[0])-2)]
 		self.data_set_labels = data_set.values[:,(len(data_set.values[0])-2)]
-		print(self.data_set_samples)
+		print((self.data_set_samples))
 		#exit()
 		#print(self.data_set_samples)
 		#print(self.data_set_labels)
@@ -211,9 +211,9 @@ class ClusteredDensityKnnModule(object):
 		#self.test_data_set_samples = test_data_set.values[:,0:(len(test_data_set.values[0])-2)]
 		self.test_data_set_labels = test_data_set.values[:,(len(test_data_set.values[0])-2)]		
 		print("a")
-		print(self.test_data_set_samples)
+		print((self.test_data_set_samples))
 		print("b")
-		print(self.test_data_set_labels)	
+		print((self.test_data_set_labels))	
 		print("c")
 		#exit()
 	

@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 import sys, os
 import pandas as pd
 from preprocessor import Preprocessor

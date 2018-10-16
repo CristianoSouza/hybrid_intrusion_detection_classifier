@@ -9,7 +9,7 @@ class Preprocessor(object):
 	classes = {}
 
 	def __init__(self):
-		print "init"
+		print("init")
 
 	#Funcao para transfmormar atributos categoricos em inteiros
 	def transformCategory(self):
@@ -22,7 +22,7 @@ class Preprocessor(object):
 			self.test_data_set[col] = le.fit_transform(self.test_data_set[col])
 
 		print("CLASSESS:")
-		print(self.classes)
+		print((self.classes))
 		return self.data_set, self.test_data_set 
 
 	#funcao para obter quantidade de classes existentes em determinado atributo

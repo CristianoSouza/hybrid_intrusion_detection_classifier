@@ -1,7 +1,7 @@
 
 import sys, os
 sys.path.append( os.path.dirname(os.path.realpath(__file__))+ "/../../../rna")
-print (os.path.dirname(os.path.realpath(__file__)))
+print((os.path.dirname(os.path.realpath(__file__))))
 from rna_classifier import RnaClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../..")
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../../hybrid")

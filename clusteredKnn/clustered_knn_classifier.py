@@ -12,20 +12,20 @@ class ClusteredKnnClassifier(object):
 	knn = None
 
 	def __init__(self):
-		print "Knn classifier"
+		print("Knn classifier")
 
 	def run(self):
-		print "RUN Knn classifier"
+		print("RUN Knn classifier")
 		self.knn.setDataSet(self.data_set)
 		self.knn.setTestDataSet(self.test_data_set)
 
 		print("aaaa")
-		print(self.data_set.values[0])
+		print((self.data_set.values[0]))
 		#exit()
 		#print(self.test_data_set)
 		self.predictions = self.knn.run()
 		print("Predicao knn: ") 
-		print(self.predictions)
+		print((self.predictions))
 		self.saveResults()
 
 	def saveResults(self):

@@ -110,7 +110,7 @@ class CrossValidation(object):
 				else:
 					self.training_sub_data_set = DataSet.concatSubDataSet(self.training_sub_data_set, new_sub_data_set)
 				del(new_sub_data_set)
-		print(self.training_sub_data_set)
+		print((self.training_sub_data_set))
 
 	#carrega conjunto de teste de acordo coma iteracao atual do cross valiadation
 	def loadTestData(self):

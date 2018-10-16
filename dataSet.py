@@ -11,7 +11,7 @@ class DataSet(object):
 	file_path = ""
 
 	def __init__(self):
-		print "init"
+		print("init")
 
 	#funcao para carregar base de dados
 	def loadData(self, k):
@@ -20,11 +20,11 @@ class DataSet(object):
 		self.partitionDataSet(k)
 
 	def selectExamples(self):
-		lista = range(0, self.dataframe_data_set.shape[0])
+		lista = list(range(0, self.dataframe_data_set.shape[0]))
 
 		tamanho = len(lista)
-		print lista
-		print tamanho
+		print(lista)
+		print(tamanho)
 		for a in range(0,tamanho):
 			#self.dataframe_data_set.scdet_value(a,'po', 15)
 			self.dataframe_data_set.loc[a, 'posicaoOriginal'] = a
@@ -57,7 +57,7 @@ class DataSet(object):
 			for j in range(0,len_posicoes):
 				lista.remove(posicoes[j])
 				texto = ""
-				print(str(i) + " - " + str(j))
+				print((str(i) + " - " + str(j)))
 				linha = self.dataframe_data_set.values[posicoes[j],:]
 				for k in range(0,len_attributes):
 					texto += str(linha[k])

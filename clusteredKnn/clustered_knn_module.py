@@ -21,10 +21,10 @@ class ClusteredKnnModule(object):
 		print("init knn module")
 
 	def run(self):
-		print(self.data_set_samples)
-		print(self.data_set_labels)
-		print(self.data_set_samples[0])
-		print(self.data_set_labels[0])
+		print((self.data_set_samples))
+		print((self.data_set_labels))
+		print((self.data_set_samples[0]))
+		print((self.data_set_labels[0]))
 		#exit()
 		'''self.findClusters(self.data_set_samples)
 
@@ -52,8 +52,8 @@ class ClusteredKnnModule(object):
 		#exit()
 		self.findClustersTraining(self.data_set_samples)
 		self.findNearestNeighborsTraining(self.data_set_samples)
-		print(self.distance)
-		print(self.distance[5])
+		print((self.distance))
+		print((self.distance[5]))
 
 		clf = neighbors.KNeighborsClassifier(self.k_neighbors,  weights='distance')
 		clf.fit(self.distance, self.data_set_labels)
@@ -61,8 +61,8 @@ class ClusteredKnnModule(object):
 		print("INICIANDO FASE DE TESTE...")
 		self.findClustersTesting(self.test_data_set_samples, self.data_set_samples)
 		self.findNearestNeighborsTesting(self.test_data_set_samples)
-		print(self.distance)
-		print(len(self.distance))
+		print((self.distance))
+		print((len(self.distance)))
 		exit()
 		predictions = clf.predict(self.distance)
 		print(predictions)
@@ -87,7 +87,7 @@ class ClusteredKnnModule(object):
 			for j in distance_clusters[i]:
 				#print("Distancia para cluster: ", j )
 				dist+= j 
-			print("Distancia para cluster: ", dist )
+			print(("Distancia para cluster: ", dist ))
 			self.distance.append([dist])
 			self.indices[kmeans.labels_[i]].append(i)
 			self.clusters[kmeans.labels_[i]].append(data_set[i]) 
@@ -100,15 +100,15 @@ class ClusteredKnnModule(object):
 				for j in  range(0, len(self.clusters[i])):
 					#print(len(self.clusters_training[i]))
 					neighbor = clf.kneighbors(self.clusters[i][j], return_distance=True)
-					print(neighbor[0][0][1])
+					print((neighbor[0][0][1]))
 
 					self.distance[self.indices[i][j]]+= neighbor[0][0][1]
-					print("indice: ", self.indices[i][j])
-					print("Exemplo: ", self.clusters[i][j])
-					print("original", data_set[self.indices[i][j]])
-					print("distancia neighbor", neighbor[0][0][1])
-					print("Distancia: ", self.distance[self.indices[i][j]])
-					print(self.indices[i][j])
+					print(("indice: ", self.indices[i][j]))
+					print(("Exemplo: ", self.clusters[i][j]))
+					print(("original", data_set[self.indices[i][j]]))
+					print(("distancia neighbor", neighbor[0][0][1]))
+					print(("Distancia: ", self.distance[self.indices[i][j]]))
+					print((self.indices[i][j]))
 					#exit()
 			else:
 				print("se cluster so tem um elemento, este elemento nao possui vizinho mais proximo")
@@ -131,8 +131,8 @@ class ClusteredKnnModule(object):
 			self.indices.append([])
 			self.clusters_training.append([])
 
-		print(len(data_set_training))
-		print(kmeans.labels_)
+		print((len(data_set_training)))
+		print((kmeans.labels_))
 
 
 		for i in range(0, len(data_set_training)):
@@ -148,14 +148,14 @@ class ClusteredKnnModule(object):
 		distance_clusters = kmeans.fit_transform(test_data_set)
 
 		print(distance_clusters)
-		print(len(distance_clusters))
+		print((len(distance_clusters)))
 		#exit()
 		for i in range(0,len(test_data_set)):
 			dist = 0
 			for j in distance_clusters[i]:
 				#print("Distancia para cluster: ", j )
 				dist+= j 
-			print("Distancia para cluster: ", dist )
+			print(("Distancia para cluster: ", dist ))
 			self.distance.append([dist])
 			self.indices[kmeans.labels_[i]].append(i)
 			self.clusters[kmeans.labels_[i]].append(test_data_set[i]) 
@@ -169,15 +169,15 @@ class ClusteredKnnModule(object):
 				for j in  range(0, len(self.clusters[i])):
 					#print(len(self.clusters_training[i]))
 					neighbor = clf.kneighbors(self.clusters[i][j], return_distance=True)
-					print(neighbor[0][0][1])
+					print((neighbor[0][0][1]))
 
 					self.distance[self.indices[i][j]]+= neighbor[0][0][1]
-					print("indice: ", self.indices[i][j])
-					print("Exemplo: ", self.clusters[i][j])
-					print("original", test_data_set[self.indices[i][j]])
-					print("distancia neighbor", neighbor[0][0][1])
-					print("Distancia: ", self.distance[self.indices[i][j]])
-					print(self.indices[i][j])
+					print(("indice: ", self.indices[i][j]))
+					print(("Exemplo: ", self.clusters[i][j]))
+					print(("original", test_data_set[self.indices[i][j]]))
+					print(("distancia neighbor", neighbor[0][0][1]))
+					print(("Distancia: ", self.distance[self.indices[i][j]]))
+					print((self.indices[i][j]))
 			else:
 				print("se cluster so tem um elemento, este elemento nao possui vizinho mais proximo")
 				
@@ -304,13 +304,13 @@ class ClusteredKnnModule(object):
 	'''
 	def setDataSetClustering(self, data_set):
 		self.data_set_samples = data_set.values[:,0:(len(data_set.values[0])-1)]
-		print(self.data_set_samples)
+		print((self.data_set_samples))
 
 	def setDataSet(self, data_set):
 		print(data_set)
 		self.data_set_samples = data_set.values[:,0:(len(data_set.values[0])-2)]
 		self.data_set_labels = data_set.values[:,(len(data_set.values[0])-2)]
-		print(self.data_set_samples)
+		print((self.data_set_samples))
 		#exit()
 		#print(self.data_set_samples)
 		#print(self.data_set_labels)
@@ -325,9 +325,9 @@ class ClusteredKnnModule(object):
 		#self.test_data_set_samples = test_data_set.values[:,0:(len(test_data_set.values[0])-2)]
 		self.test_data_set_labels = test_data_set.values[:,(len(test_data_set.values[0])-2)]		
 		print("a")
-		print(self.test_data_set_samples)
+		print((self.test_data_set_samples))
 		print("b")
-		print(self.test_data_set_labels)	
+		print((self.test_data_set_labels))	
 		print("c")
 		#exit()
 	
