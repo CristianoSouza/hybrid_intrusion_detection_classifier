@@ -26,9 +26,9 @@ knn_classifier.setKnn(knn)
 
 #CONFIGURACAO DA REDE NEURAL 
 rna = RnaModule()
-rna.setNumberNeuronsImputLayer(12)
-rna.setActivationFunctionImputLayer("tanh")
-rna.setImputDimNeurons(12)
+rna.setNumberNeuronsInputLayer(12)
+rna.setActivationFunctionInputLayer("tanh")
+rna.setInputDimNeurons(12)
 rna.setNumberNeuronsHiddenLayer(13)
 rna.setActivationFunctionHiddenLayer("tanh")
 rna.setNumberNeuronsOutputLayer(1)

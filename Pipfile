@@ -8,6 +8,7 @@ pandas = "*"
 sklearn = "*"
 keras = "*"
 tensorflow = "*"
+talos = "*"
 
 [dev-packages]
 

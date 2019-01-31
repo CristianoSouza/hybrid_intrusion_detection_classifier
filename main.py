@@ -40,19 +40,22 @@ knn.setKNeighbors(1)
 knn_classifier = KnnClassifier()
 knn_classifier.setKnn(knn)
 
-#CONFIGURACAO DA REDE NEURAL 
+#CONFIGURACAO DA REDE NEURAL
 rna = RnaModule()
-rna.setNumberNeuronsImputLayer(41)
-rna.setActivationFunctionImputLayer("tanh")
-rna.setImputDimNeurons(41)
-rna.setNumberNeuronsHiddenLayer(41)
-rna.setActivationFunctionHiddenLayer("tanh")
-rna.setNumberNeuronsOutputLayer(1)
-rna.setActivationFunctionOutputLayer("tanh")
+# COMENTANDO HIPERPARÂMETROS MANUAIS
+
+# rna.setNumberNeuronsInputLayer(41)
+# rna.setActivationFunctionInputLayer("tanh")
+# rna.setInputDimNeurons(41)
+# rna.setNumberNeuronsHiddenLayer(41)
+# rna.setActivationFunctionHiddenLayer("tanh")
+# rna.setNumberNeuronsOutputLayer(1)
+# rna.setActivationFunctionOutputLayer("tanh")
+rna.doHO()
 rna_classifier = RnaClassifier()
 rna_classifier.setRna(rna)
 
-#METODO HIBRIDO 
+#METODO HIBRIDO
 hybrid_classifier = HybridClassifier()
 hybrid_classifier.setPercentilFaixaSup(25)
 hybrid_classifier.setPercentilFaixaInf(100)

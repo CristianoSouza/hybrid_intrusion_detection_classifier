@@ -20,9 +20,9 @@ dts.setFilePath("bases/sub_bases/")
 
 #CONFIGURACAO DA REDE NEURAL 
 rna = RnaModule()
-rna.setNumberNeuronsImputLayer(30)
-rna.setActivationFunctionImputLayer("tanh")
-rna.setImputDimNeurons(30)
+rna.setNumberNeuronsInputLayer(30)
+rna.setActivationFunctionInputLayer("tanh")
+rna.setInputDimNeurons(30)
 rna.setNumberNeuronsHiddenLayer(31)
 rna.setActivationFunctionHiddenLayer("tanh")
 rna.setNumberNeuronsOutputLayer(1)

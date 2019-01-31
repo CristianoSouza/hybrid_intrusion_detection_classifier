@@ -1,3 +1,4 @@
+import talos as ta
 import numpy as np
 import tensorflow as tf
 from keras.callbacks import CSVLogger
@@ -23,26 +24,51 @@ class RnaModule(object):
 	#classes dos exemplos de teste
 	test_data_set_labels = []
 
-	number_neurons_imput_layer = 0
+	number_neurons_input_layer = 0
 	number_neurons_hidden_layer = 0
 	number_neurons_output_layer = 0
 
-	imput_dim_neurons = 0
+	input_dim_neurons = 0
 
 	#funcoes de ativacao dos neuronios de cada camada
-	activation_function_imput_layer = "relu"
+	activation_function_input_layer = "relu"
 	activation_function_hidden_layer = "relu"
 	activation_function_output_layer = "sigmoid"
 
 	model = None
+	hyperparameters_setting_mode = None
 
 	def __init__(self):
 		print("init rna module")
 
+	def __generateModelHO(self,x_train, y_train, x_val, y_val, params):
+		self.model = Sequential()
+		self.model.add(Dense(params['n_neurons_input'], input_dim= self.input_dim_neurons, init='normal', activation=params['activation_function']))
+		self.model.add(Dense(params['n_neurons_hidden'], init='normal', activation=params['activation_function']))
+		self.model.add(Dense(1, init='normal', activation=params['activation_function']))
+
+		self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+		csv_logger = CSVLogger('training.log')
+
+		#funcao para interromper treinamento quando o erro for suficientemente pequeno
+		early_stopping = EarlyStopping(monitor='loss',patience=20)
+		fit = self.model.fit(x_train, y_train, epochs=500, verbose=2, callbacks=[early_stopping])
+
+		return fit, self.model
+	#Faz a otimização de hiperparâmetros
+	def doHO(self, x, y):
+		p = {
+			'n_neurons_input': [10, 20, 41],
+			'n_neurons_hidden': [10, 20, 41],
+			'activation_function': ['sigmoid', 'relu', 'elu'],
+		}
+		self.hyperparameters_setting_mode = "auto"
+		print(talos.scan(x, y, p, self.__generateModelHO))
+
 	#funcao para criar a rna para abordagem simples
 	def generateModel(self):
 		self.model = Sequential()
-		self.model.add(Dense(self.number_neurons_imput_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_imput_layer))
+		self.model.add(Dense(self.number_neurons_input_layer, input_dim= self.input_dim_neurons, init='normal', activation=self.activation_function_input_layer))
 		self.model.add(Dense(self.number_neurons_hidden_layer, init='normal', activation=self.activation_function_hidden_layer))
 		self.model.add(Dense(self.number_neurons_output_layer, init='normal', activation=self.activation_function_output_layer))
 
@@ -56,7 +82,7 @@ class RnaModule(object):
     #funcao para criar a rna para a abordagem hibrida
 	def generateHybridModel(self):
 		self.model = Sequential()
-		self.model.add(Dense(self.number_neurons_imput_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_imput_layer))
+		self.model.add(Dense(self.number_neurons_input_layer, input_dim= self.input_dim_neurons, init='normal', activation=self.activation_function_input_layer))
 		self.model.add(Dense(self.number_neurons_hidden_layer, init='normal', activation=self.activation_function_hidden_layer))
 		self.model.add(Dense(self.number_neurons_output_layer, init='normal', activation=self.activation_function_output_layer))
 
@@ -98,50 +124,58 @@ class RnaModule(object):
 		#print(self.test_data_set_samples)
 		#print(self.test_data_set_labels)
 
-	def setNumberNeuronsImputLayer(self, number):
-		self.number_neurons_imput_layer = number
+	def setNumberNeuronsInputLayer(self, number):
+		self.hyperparameters_setting_mode = "manual"
+		self.number_neurons_input_layer = number
 
-	def getNumberNeuronsImputLayer(self):
-		return self.number_neurons_imput_layer
+	def getNumberNeuronsInputLayer(self):
+		return self.number_neurons_input_layer
 
 	def setNumberNeuronsHiddenLayer(self, number):
+		self.hyperparameters_setting_mode = "manual"
 		self.number_neurons_hidden_layer = number
 
 	def getNumberNeuronsHiddenLayer(self):
 		return self.number_neurons_hidden_layer
 
 	def setNumberNeuronsOutputLayer(self, number):
+		self.hyperparameters_setting_mode = "manual"
 		self.number_neurons_output_layer = number
 
 	def getNumberNeuronsOutputLayer(self):
 		return self.number_neurons_output_layer
 
-	def setActivationFunctionImputLayer(self, activation_function):
-		self.activation_function_imput_layer = activation_function
+	def setActivationFunctionInputLayer(self, activation_function):
+		self.hyperparameters_setting_mode = "manual"
+		self.activation_function_input_layer = activation_function
 
-	def getActivationFunctionImputLayer(self):
-		return self.activation_function_imput_layer
+	def getActivationFunctionInputLayer(self):
+		return self.activation_function_input_layer
 
 	def setActivationFunctionHiddenLayer(self, activation_function):
+		self.hyperparameters_setting_mode = "manual"
 		self.activation_function_hidden_layer = activation_function
 
 	def getActivationFunctionHiddenLayer(self):
 		return self.activation_function_hidden_layer
 
 	def setActivationFunctionOutputLayer(self, activation_function):
+		self.hyperparameters_setting_mode = "manual"
 		self.activation_function_output_layer = activation_function
 
 	def getActivationFunctionOutputLayer(self):
 		return self.activation_function_output_layer
 
-	def setImputDimNeurons(self, number):
-		self.imput_dim_neurons = number
+	def setInputDimNeurons(self, number):
+		self.hyperparameters_setting_mode = "manual"
+		self.input_dim_neurons = number
 
-	def getNumberNeuronsImputLayer(self):
-		return self.imput_dim_neurons
+	def getNumberNeuronsInputLayer(self):
+		return self.input_dim_neurons
 
-	def setDimImputLayer(self, dim_imput_layer):
-		self.dim_imput_layer = dim_imput_layer
+	def setDimInputLayer(self, dim_input_layer):
+		self.hyperparameters_setting_mode = "manual"
+		self.dim_input_layer = dim_input_layer
 
-	def getDimImputLayer(self):
-		return self.dim_imput_layer
+	def getDimInputLayer(self):
+		return self.dim_input_layer
