@@ -18,13 +18,16 @@ from knn_module import KnnModule
 from evaluate_module import EvaluateModule
 
 dts = DataSet()
-#dts.setFilePath("../CICIDS2017/MachineLearningCVE/")
-#dts.setFileName("Monday-WorkingHours.pcap_ISCX.csv")
+
 #pasta pra salvar
-dts.setFilePath("teste/")
+#dts.setFilePath("../../Bases/MachineLearningCVE/teste/")
+dts.setFilePath("../../Bases/MachineLearningCVE/DoS/")
+
 #caminho e nome do arquivo
-dts.setFileName("../../Bases/MachineLearningCVE/")
-dts.loadData()
+#dts.setFileName("../../Bases/MachineLearningCVE/teste_ddos.csv")
+dts.setFileName("../../Bases/MachineLearningCVE/Friday-WorkingHours-Afternoon-DDos_BINARY.pcap_ISCX.csv")
+
+dts.loadData(10)
 
 '''
 #CONFIGURACAO DO KNN
