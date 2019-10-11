@@ -32,8 +32,7 @@ class HybridClassifier(object):
 	training_time = 0
 	test_time = 0
 	limite_faixa_sup = 0
-        limite_faixa_inf = 0
-
+	limite_faixa_inf = 0
 
 	def __init__(self):
 		print("init")

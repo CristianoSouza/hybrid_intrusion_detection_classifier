@@ -24,7 +24,7 @@ class KnnClassifier(object):
 	knn = None
 
 	def __init__(self):
-		print "Knn classifier"
+		print ("Knn classifier")
 
 
 	def run(self):

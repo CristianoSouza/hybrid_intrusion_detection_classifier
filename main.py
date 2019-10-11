@@ -18,22 +18,15 @@ from knn_module import KnnModule
 from evaluate_module import EvaluateModule
 
 dts = DataSet()
-dts.setFilePath("bases/sub_bases_nslkdd_20attribute/")
-#dts.setFileName("base_iris.csv")
-#dts.setFileName("SmallTrainingSet.csv")
-##dts.setFileName("winequality-red.csv")
-#dts.setFileName("NSL_KDD-master/20PercentTrainingSet.csv")
-dts.setFileName("NSL_KDD-master/KDDTrain+binary_class.csv")
-#dts.setFileName("NSL_KDD-master/SmallTrainingSet.csv")
-#dts.setFileName("NSL_KDD-master/SmallTrainingSetFiveClass.csv")
+#dts.setFilePath("../CICIDS2017/MachineLearningCVE/")
+#dts.setFileName("Monday-WorkingHours.pcap_ISCX.csv")
+#pasta pra salvar
+dts.setFilePath("teste/")
+#caminho e nome do arquivo
+dts.setFileName("../../Bases/MachineLearningCVE/")
+dts.loadData()
 
-#dts.setFileName("../../KDDCUP99/kddcup10%.csv")
-
-
-#print("load data")
-#ts.loadData(10)
-
-
+'''
 #CONFIGURACAO DO KNN
 knn = KnnModule()
 knn.setKNeighbors(1)
@@ -77,10 +70,10 @@ cross.setPreprocessor(preprocessor)
 #cross.setFilePath("bases/sub_bases_nslkdd_12attribute/")
 #cross.setFilePath("bases/sub_bases_nslkdd_20attribute/")
 #cross.setFilePath("bases/sub_bases_SmallTrainingSet/")
-cross.setFilePath("bases/sub_bases_small_training_set1000/")
+#cross.setFilePath("bases/sub_bases_small_training_set1000/")
 
 #cross.setResultPath("results/faixa_hibrido/")
-cross.setResultPath("results/teste_casa/")
+cross.setResultPath("results/teste_cicids2017/")
 
 #cross.setClassifier(rna_classifier)
 #cross.setClassifier(knn_classifier)
@@ -90,3 +83,4 @@ cross.setClassifier(hybrid_classifier)
 
 cross.setEvaluateModule(evaluate)
 cross.run()
+'''

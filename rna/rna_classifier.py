@@ -26,7 +26,7 @@ class RnaClassifier(object):
 	result_path = ""
 
 	def __init__(self):
-		print "aa"
+		print ("aa")
 
 	def run(self):
 		training_time_start = time.time()

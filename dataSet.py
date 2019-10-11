@@ -8,27 +8,30 @@ class DataSet(object):
 	test_file_name = ""
 	dataframe_data_set = []
 	partition_size = 0
+	number_folds = 10
 	file_path = ""
 
 	def __init__(self):
-		print "init"
+		print ("init")
 
 	#funcao para carregar base de dados
-	def loadData(self, k):
-		self.dataframe_data_set = pandas.read_csv("bases/" + self.file_name)
+	def loadData(self, number):
+		self.number_folds = number
+		self.dataframe_data_set = pandas.read_csv(self.file_name)
 		#funcao para particionar a base de dados em K conjuntos de modo aleatorio
-		self.partitionDataSet(k)
+		self.partitionDataSet()
 
 	def selectExamples(self):
-		lista = range(0, self.dataframe_data_set.shape[0])
+		lista = list(range(0, self.dataframe_data_set.shape[0]))
 
 		tamanho = len(lista)
-		print lista
-		print tamanho
+		#print (lista)
+		#print (tamanho)
 		for a in range(0,tamanho):
 			#self.dataframe_data_set.scdet_value(a,'po', 15)
-			self.dataframe_data_set.loc[a, 'posicaoOriginal'] = a
+			self.dataframe_data_set.loc[a, 'posicaoOriginal'] = int(a)
 
+		#print(self.dataframe_data_set)
 		directory = os.path.dirname(self.file_path)
 		if not os.path.exists(directory):
 			print("nom ecsiste")
@@ -41,7 +44,10 @@ class DataSet(object):
 		len_attributes = len(self.dataframe_data_set.values[0,:])
 		for i in range(0,10):
 			sub_data_set = []
-			posicoes = random.sample(lista,self.partition_size)
+			#print(self.partition_size)
+			posicoes = random.sample(lista,int(self.partition_size))
+			#print("--")
+			#print(posicoes)
 			len_posicoes = len(posicoes)
 
 			arquivo = open( self.file_path + "sub_data_set_" + str(i+1) + ".csv", 'w') 
@@ -55,19 +61,23 @@ class DataSet(object):
 """)	
 
 			for j in range(0,len_posicoes):
-				lista.remove(posicoes[j])
+				#print(":::::")
+				#print(lista)
+				#print(posicoes[j])
+				lista.remove(int(posicoes[j]))
 				texto = ""
-				print(str(i) + " - " + str(j))
+				#print(str(i) + " - " + str(j))
 				linha = self.dataframe_data_set.values[posicoes[j],:]
 				for k in range(0,len_attributes):
 					texto += str(linha[k])
-					if(k+1 < len_attributes):
+					if(k+1 < len_attributes): 
 						texto += ""","""
 					else:
 						texto +="""
 """  
 				arquivo.write(texto) 
 			arquivo.close()
+
 
 		if lista:
 			for i in range(0,len(lista)):
@@ -83,10 +93,10 @@ class DataSet(object):
 """  
 				arquivo.write(texto) 
 				arquivo.close()
-	
+
 	#funcao para particionar a base de dados em K conjuntos de modo aleatorio
-	def partitionDataSet(self, k):
-		self.partition_size = (self.dataframe_data_set.shape[0] / k)
+	def partitionDataSet(self):
+		self.partition_size = (self.dataframe_data_set.shape[0] / self.number_folds)
 		self.selectExamples()
 
 	@classmethod

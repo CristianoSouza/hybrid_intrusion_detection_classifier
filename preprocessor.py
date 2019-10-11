@@ -9,7 +9,7 @@ class Preprocessor(object):
 	classes = {}
 
 	def __init__(self):
-		print "init"
+		print ("init")
 
 	#Funcao para transfmormar atributos categoricos em inteiros
 	def transformCategory(self):
