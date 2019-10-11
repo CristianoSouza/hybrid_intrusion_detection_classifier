@@ -4,6 +4,7 @@ from preprocessor import Preprocessor
 from dataSet import DataSet
 
 dataframe_data_set = pandas.read_csv("../../Bases/MachineLearningCVE/Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv")
+#dataframe_data_set = pandas.read_csv("../../Bases/MachineLearningCVE/teste_ddos.csv")
 
 tamanho = dataframe_data_set.shape[0]
 print(tamanho)
@@ -22,4 +23,5 @@ for a in range(0,tamanho):
 for ix in dataframe_data_set.index:
     dataframe_data_set.loc[ix, " Label"] = 'My New Value'
 '''
+#dataframe_data_set.to_csv("../../Bases/MachineLearningCVE/teste_ddos_BINARY.csv", sep=',', index=False)
 dataframe_data_set.to_csv( "../../Bases/MachineLearningCVE/Friday-WorkingHours-Afternoon-DDos_BINARY.pcap_ISCX.csv", sep=',', index=False)
