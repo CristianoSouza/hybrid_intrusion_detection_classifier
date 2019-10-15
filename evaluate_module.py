@@ -22,6 +22,7 @@ class EvaluateModule(object):
 	classifier = None
 	training_time = 0 
 	test_time = 0
+	class_name = ""
 
 	def __init__(self):
 		print("init")
@@ -40,7 +41,7 @@ class EvaluateModule(object):
 		result_dataframe = DataSet.loadResult(self.result_path , self.iteration)
 		
 		#obtem numero de classes diferentes existentes no atributos classe
-		self.classes = Preprocessor.getClassesPerColumns(self.test_data_set,'classe')
+		self.classes = Preprocessor.getClassesPerColumns(self.test_data_set, self.class_name)
 
 		acc_classes = []
 		err_classes = []
@@ -173,6 +174,9 @@ NORMAL |   """+ str(self.number_false_positives) + """    ||   """+ str(self.num
 
 	def setClasses(self, classes):
 		self.classes = classes
+
+	def setClass_name(self, class_name):
+		self.class_name = class_name
 
 	def getClasses(self):
 		return self.classes

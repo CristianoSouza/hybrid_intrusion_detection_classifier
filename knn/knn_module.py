@@ -21,6 +21,18 @@ class KnnModule(object):
 	#funcao que cria a base de exemplos do KNN
 	def buildExamplesBase(self):
 		self.clf = neighbors.KNeighborsClassifier(self.k_neighbors, weights='uniform', algorithm='brute')
+		#print(self.data_set_samples)
+		#print(self.data_set_labels)
+
+		#for x in np.nditer(self.data_set_samples):
+		#	print(x)
+		#print(self.data_set_samples)
+		'''
+		for i in range(0,10):
+			for j in range(0,78):
+				print(self.data_set_samples[i,j])
+		'''
+		#exit()
 		self.clf.fit(self.data_set_samples, self.data_set_labels)
 
 	#funcao que realiza a classificacao dos exemplos

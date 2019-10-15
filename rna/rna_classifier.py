@@ -48,7 +48,7 @@ class RnaClassifier(object):
 	#salva os resultados das classificacoes na pasta definida no arquivo main.py
 	def saveResults(self):
 		for i in range(0,len(self.predictions)):
-			self.test_data_set.set_value(i,'classe',self.predictions[i])
+			self.test_data_set.set_value(i,' Label',self.predictions[i])
 
 		DataSet.saveResults(self.result_path, self.iteration, self.test_data_set)	
 
