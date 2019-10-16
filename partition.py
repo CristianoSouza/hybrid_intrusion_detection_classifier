@@ -17,6 +17,7 @@ from rna_module import RnaModule
 from knn_module import KnnModule
 from evaluate_module import EvaluateModule
 
+
 dts = DataSet()
 
 #pasta pra salvar
