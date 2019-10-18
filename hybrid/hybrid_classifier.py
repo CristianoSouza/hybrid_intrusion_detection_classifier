@@ -148,7 +148,7 @@ class HybridClassifier(object):
 
 		#realiza as modificacoes no dataframe dos exemplos originais de teste de acordo com a classificacao do KNN
 		for i in range(0,len(self.predictions_knn)):
-			self.test_data_set.set_value(list_position_intermediate_range_samples[i], 'classe', self.predictions_knn[i])
+			self.test_data_set.set_value(list_position_intermediate_range_samples[i], ' Label', self.predictions_knn[i])
 
 		#salva o data frame modificado como o resultado final
 		DataSet.saveResults( self.result_path + "final_method_classification/", self.iteration, self.test_data_set)
