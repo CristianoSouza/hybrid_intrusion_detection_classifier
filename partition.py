@@ -1,5 +1,10 @@
 from dataSet import DataSet
 
+
+arquivo = open( "saidaaa.csv", 'w') 
+arquivo.write("CHAMOU PARTITION") 
+arquivo.close()
+
 dts = DataSet()
 
 print("Iniciando particionamento....")
