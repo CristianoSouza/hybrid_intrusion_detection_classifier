@@ -3,13 +3,13 @@ import pandas
 import time
 import numpy as np
 
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../../knn")
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../../rna")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../hybrid_intrusion_detection_classifier/knn")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../hybrid_intrusion_detection_classifier/rna")
 
 from knn_module import KnnModule
 from rna_module import RnaModule
 
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../..")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../hybrid_intrusion_detection_classifier")
 from dataSet import DataSet
 
 class HybridClassifier(object):
@@ -96,11 +96,11 @@ class HybridClassifier(object):
 				if(self.predictions_rna[i] > (self.upper_threshold) ):
 					#print("CLASSIFICACAO CONFIAVEL!")
 					#realiza as modificacoes no dataframe dos exemplos originais de teste de acordo com a classificacao da RNA
-					self.test_data_set.set_value(i, 'classe', 1)
+					self.test_data_set.set_value(i, ' Label', 1)
 				elif( self.predictions_rna[i] < (self.lower_threshold)):
 					#print("CLASSIFICACAO CONFIAVEL!")
 					#realiza as modificacoes no dataframe dos exemplos originais de teste de acordo com a classificacao da RNA
-					self.test_data_set.set_value(i, 'classe', 0)
+					self.test_data_set.set_value(i, ' Label', 0)
 				else:
 					#print("FAIXA INTERMEDIARIA!")
 					#adiciona exemplos em um vetor de exemplos classificados como intermediarios
