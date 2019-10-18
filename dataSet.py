@@ -27,8 +27,8 @@ class DataSet(object):
 		tamanho = len(lista)
 		#print (list
 		#print (tamanho)
-	    arquivo = open( "saidaaa.csv", 'a')
-	    arquivo.write("\nEntrou.... vai montar lista")
+		arquivo = open( "saidaaa.csv", 'a')
+		arquivo.write("\nEntrou.... vai montar lista")
 		arquivo.close()
 		for a in range(0,tamanho):
 			self.dataframe_data_set.scdet_value(a,'po', 15)
@@ -42,7 +42,7 @@ class DataSet(object):
 		else:
 			print("ecsiste")
 
-	    arquivo = open( "saidaaa.csv", 'a')
+		arquivo = open( "saidaaa.csv", 'a')
 		arquivo.write("\nmontou a listaaaaa \n VAI COMECAR A PARTICIONAR A BASE...")
 		arquivo.close()
 		data_set = []
