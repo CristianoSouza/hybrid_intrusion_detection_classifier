@@ -26,10 +26,13 @@ class DataSet(object):
 
 		tamanho = len(lista)
 		#print (lista)
-		#print (tamanho)
-		for a in range(0,tamanho):
-			#self.dataframe_data_set.scdet_value(a,'po', 15)
-			self.dataframe_data_set.loc[a, 'posicaoOriginal'] = int(a)
+        #print (tamanho)
+        arquivo = open( "saidaaa.csv", 'a') 
+        arquivo.write("\nEntrou.... vai montar lista") 
+        arquivo.close()
+        for a in range(0,tamanho): 
+            #self.dataframe_data_set.scdet_value(a,'po', 15)
+		    self.dataframe_data_set.loc[a, 'posicaoOriginal'] = int(a)
 
 		#print(self.dataframe_data_set)
 		directory = os.path.dirname(self.file_path)
@@ -38,11 +41,15 @@ class DataSet(object):
 			os.makedirs(directory)
 		else:
 			print("ecsiste")	
+        
+        arquivo = open( "saidaaa.csv", 'a')
+        arquivo.write("\nmontou a listaaaaa \n VAI COMECAR A PARTICIONAR A BASE...")
+        arquivo.close() 
+        data_set = []
 
-		data_set = []
-		data_set_posicoes = []
-		len_attributes = len(self.dataframe_data_set.values[0,:])
-		for i in range(0,10):
+        data_set_posicoes = []
+        len_attributes = len(self.dataframe_data_set.values[0,:])
+	    for i in range(0,10):
 			sub_data_set = []
 			#print(self.partition_size)
 			posicoes = random.sample(lista,int(self.partition_size))
