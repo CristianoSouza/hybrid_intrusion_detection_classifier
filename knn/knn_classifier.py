@@ -3,7 +3,7 @@ import pandas
 import os
 import time
 import sys
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/..")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../hybrid_intrusion_detection_classifier")
 from dataSet import DataSet
 
 class KnnClassifier(object):

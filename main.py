@@ -70,7 +70,7 @@ cross.setPreprocessor(preprocessor)
 #cross.setResultPath("results/faixa_hibrido/")
 cross.setFilePath("../../Bases/MachineLearningCVE/DoS/")
 #cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_20_nslkdd/")
-cross.setResultPath("../results_ann-knn_cicids2017_ddos/completa/")
+cross.setResultPath("../results_ann-knn_cicids2017_ddos/completa/rna/")
 
 cross.setClassifier(rna_classifier)
 #cross.setClassifier(knn_classifier)
