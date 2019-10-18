@@ -48,7 +48,7 @@ class KnnClassifier(object):
 	def saveResults(self):
 		data_set = self.test_data_set[:] 
 		for i in range(0,len(self.predictions)):
-			data_set.set_value(i,'classe',self.predictions[i])
+			data_set.set_value(i,' Label',self.predictions[i])
 		DataSet.saveResults(self.result_path, self.iteration, data_set)
 
 	def setDataSet(self, data_set):
