@@ -30,13 +30,41 @@ class KnnModule(object):
 		'''
 		for i in range(0,10):
 			for j in range(0,78):
+				self.data_set_samples[i,j] = int(self.data_set_samples[i,j])
+				if (self.data_set_samples[i,j] > 1000):
+					self.data_set_samples[i,j] = 1000
+				if (self.data_set_samples[i,j] < 0 ):
+					self.data_set_samples[i,j] = 0
 				print(self.data_set_samples[i,j])
 		'''
 		#exit()
+		'''
+		for i in range(0,90):
+			print(str(i) +" " + str(self.data_set_labels[i]))
+		'''
+		'''
+		if (pandas.isnull(self.data_set_samples).sum() > 0):
+			print("NAN PRESENTEE")
+		else:
+			print("Nao exsite NAN prsente")
+		'''
+		#self.data_set_samples = imp.fit_transform(self.data_set_samples)
 		self.clf.fit(self.data_set_samples, self.data_set_labels)
 
 	#funcao que realiza a classificacao dos exemplos
 	def run(self):
+		#exit()
+		print("-------------------------------------------------")
+		'''for i in range(0,10):
+			print(self.test_data_set_samples[i])
+			for j in range(0,78):
+				#self.test_data_set_samples[i,j] = int(self.test_data_set_samples[i,j])
+				if (self.test_data_set_samples[i,j] > 1000):
+					self.test_data_set_samples[i,j] = 1000
+				if (self.test_data_set_samples[i,j] < 0 ):
+					self.test_data_set_samples[i,j] = 0
+				#print(self.test_data_set_samples[i,j])
+		'''
 		predictions = self.clf.predict(self.test_data_set_samples)
 		return predictions
 

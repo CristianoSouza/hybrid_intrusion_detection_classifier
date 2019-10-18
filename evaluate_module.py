@@ -52,8 +52,8 @@ class EvaluateModule(object):
 		for i in range(0,len(result_dataframe.values)):
 			self.total_samples+= 1
 			#print("Real: " + str(self.test_data_set.values[i,posicao_classe]) + " -- predito: " + str(result_dataframe.values[i,posicao_classe]))
-			if(self.test_data_set.values[i,posicao_classe] == '0' or self.test_data_set.values[i,posicao_classe] == 0 ):
-				if (result_dataframe.values[i,posicao_classe] == 0 or result_dataframe.values[i,posicao_classe] == '0'):
+			if(self.test_data_set.values[i,posicao_classe] == '0' or self.test_data_set.values[i,posicao_classe] == '0.0' or self.test_data_set.values[i,posicao_classe] == 0 ):
+				if (result_dataframe.values[i,posicao_classe] == 0 or result_dataframe.values[i,posicao_classe] == '0' or result_dataframe.values[i,posicao_classe] == '0.0' ):
 					#print("FALSO E CLASSIFICOU COMO FALSO")
 					self.number_true_negatives+=1
 					self.acc_samples+=1
@@ -62,8 +62,8 @@ class EvaluateModule(object):
 					self.number_false_positives+=1
 					self.err_samples+=1 
 
-			elif(self.test_data_set.values[i,posicao_classe] == '1' or self.test_data_set.values[i,posicao_classe] == 1):
-				if (result_dataframe.values[i,posicao_classe] == 1 or result_dataframe.values[i,posicao_classe] == '1'):
+			elif(self.test_data_set.values[i,posicao_classe] == '1' or result_dataframe.values[i,posicao_classe] == '1.0' or self.test_data_set.values[i,posicao_classe] == 1):
+				if (result_dataframe.values[i,posicao_classe] == 1 or result_dataframe.values[i,posicao_classe] == '1' or result_dataframe.values[i,posicao_classe] == '1.0' ):
 					#print("VERDADEIRO E CLASSIFICOU COMO VERDADEIRO")
 					self.number_true_positives+=1
 					self.acc_samples+=1
