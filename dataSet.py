@@ -28,15 +28,14 @@ class DataSet(object):
 		#print (list
 		#print (tamanho)
 		arquivo = open( "saidaaa.csv", 'a')
-		arquivo.write("\nEntrou.... vai colocar posicao ORIGINAL")
+		arquivo.write("\nEntrou.... vai colocar a posicaoOriginal")
 		arquivo.close()
 		for a in range(0,tamanho):
 			#self.dataframe_data_set.scdet_value(a,'po', 15)
 			self.dataframe_data_set.loc[a, 'posicaoOriginal'] = int(a)
-        
-        arquivo = open( "saidaaa.csv", 'a')
-        arquivo.write("\ncolocou posicao ORIGINAL")
-        arquivo.close()
+		arquivo = open( "saidaaa.csv", 'a')
+		arquivo.write("\ncolocou a posicaoOriginal ja")
+		arquivo.close()
 
 		#print(self.dataframe_data_set)
 		directory = os.path.dirname(self.file_path)
