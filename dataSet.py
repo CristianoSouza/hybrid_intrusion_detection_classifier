@@ -28,6 +28,7 @@ class DataSet(object):
 		#print (list
 		#print (tamanho)
 		arquivo = open( "saidaaa.csv", 'a')
+		arquivo.write("\n\n Tamanho " + str(tamanho) + "\n\n")
 		arquivo.write("\nEntrou.... vai colocar a posicaoOriginal")
 		arquivo.close()
 		for a in range(0,tamanho):
