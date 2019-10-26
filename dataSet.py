@@ -23,7 +23,9 @@ class DataSet(object):
 
 	def selectExamples(self):
 		lista = list(range(0, self.dataframe_data_set.shape[0]))
-
+		print(self.dataframe_data_set.index.duplicated())
+		self.dataframe_data_set = self.dataframe_data_set[~self.dataframe_data_set.index.duplicated()]
+		print(self.dataframe_data_set.index.duplicated())
 		tamanho = len(lista)
 		#print (list
 		#print (tamanho)
