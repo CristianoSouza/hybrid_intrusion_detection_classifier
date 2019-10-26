@@ -24,8 +24,16 @@ class DataSet(object):
 	def selectExamples(self):
 		lista = list(range(0, self.dataframe_data_set.shape[0]))
 		print(self.dataframe_data_set.index.duplicated())
+		arquivo = open( "saidaaa.csv", 'a')
+		arquivo.write("\n\n antes " )
+		arquivo.write(self.dataframe_data_set.index.duplicated())
+		arquivo.close()
 		self.dataframe_data_set = self.dataframe_data_set[~self.dataframe_data_set.index.duplicated()]
 		print(self.dataframe_data_set.index.duplicated())
+		arquivo = open( "saidaaa.csv", 'a')
+		arquivo.write("\n\n depois " )
+		arquivo.write(self.dataframe_data_set.index.duplicated())
+		arquivo.close()
 		tamanho = len(lista)
 		#print (list
 		#print (tamanho)
