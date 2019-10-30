@@ -17,31 +17,49 @@ class DataSet(object):
 	#funcao para carregar base de dados
 	def loadData(self, number):
 		self.number_folds = number
-		self.dataframe_data_set = pandas.read_csv(self.file_name)
+		self.dataframe_data_set = pandas.read_csv(self.file_name, index_col=False)
+		#print(self.dataframe_data_set.values)
+		#exit()
 		#funcao para particionar a base de dados em K conjuntos de modo aleatorio
 		self.partitionDataSet()
 
 	def selectExamples(self):
-		lista = list(range(0, self.dataframe_data_set.shape[0]))
-		print(self.dataframe_data_set.index.duplicated())
+		#print(self.dataframe_data_set.index.duplicated())
 
-		self.dataframe_data_set = self.dataframe_data_set[~self.dataframe_data_set.index.duplicated()]
-		print(self.dataframe_data_set.index.duplicated())
+		#self.dataframe_data_set = self.dataframe_data_set[~self.dataframe_data_set.index.duplicated()]
+		#print(self.dataframe_data_set.index.duplicated())
+
+		lista = list(range(0, self.dataframe_data_set.shape[0]))
 
 		tamanho = len(lista)
+		print(tamanho)
 		#print (list
 		#print (tamanho)
 		arquivo = open( "saidaaa.csv", 'a')
 		arquivo.write("\n\n Tamanho " + str(tamanho) + "\n\n")
 		arquivo.write("\nEntrou.... vai colocar a posicaoOriginal")
 		arquivo.close()
+		'''
+		#for (i, row) in self.dataframe_data_set.iterrows():
+		for j in range(0,tamanho):
+			print(self.dataframe_data_set.values[0])
+			#aa = row['Destination Port']
+			#print(aa)
+			#print(i)
+
+		'''
+
+		
 		for a in range(0,tamanho):
 			#self.dataframe_data_set.scdet_value(a,'po', 15)
+			#print("aaa: " + str(a))
+			#print(self.dataframe_data_set.index[a])
 			self.dataframe_data_set.loc[a, 'posicaoOriginal'] = int(a)
+		
 		arquivo = open( "saidaaa.csv", 'a')
 		arquivo.write("\ncolocou a posicaoOriginal ja")
 		arquivo.close()
-
+		
 		#print(self.dataframe_data_set)
 		directory = os.path.dirname(self.file_path)
 		if not os.path.exists(directory):
@@ -116,7 +134,7 @@ class DataSet(object):
 
 	@classmethod
 	def loadSubDataSet(self, file_name):
-		sub_dataframe_data_set = pandas.read_csv(file_name)
+		sub_dataframe_data_set = pandas.read_csv(file_name, index_col=False)
 		return sub_dataframe_data_set
 
 	@classmethod
