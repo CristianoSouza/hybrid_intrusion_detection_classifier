@@ -88,7 +88,7 @@ class HybridClassifier(object):
 		if (self.verifyClassesPredictions(predictions) == True):
 			#define os limites superiores e inferiores de acordo com os valores de percentil para definir a faixa intermediaria (valores de percentil sao setados no arquivo main.py)
 			self.upper_threshold = np.percentile(positivos_serie,self.percentil_faixa_sup)
-			self.lower_threshold = np.percentile(negativos_serie,(100 - self.percentil_faixa_inf))
+			self.lower_threshold = np.percentile(negativos_serie,(self.percentil_faixa_inf))
 
 			#verifica se valor esta dentro dos limites ou fora
 			for i in range(0,len(self.predictions_rna)):
