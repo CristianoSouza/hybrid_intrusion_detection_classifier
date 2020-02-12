@@ -12,6 +12,8 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/knn")
 from knn_classifier import KnnClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/svm")
 from svm_classifier import SvmClassifier
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/rf")
+from rf_classifier import RfClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/clusteredKnn")
 from clustered_knn_classifier import ClusteredKnnClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/clusteredDensityKnn")
@@ -88,6 +90,9 @@ class CrossValidation(object):
 				self.evaluate.setResultPath(self.result_path)
 			elif(isinstance(self.classifier, SvmClassifier)):
 				print("svm")
+				self.evaluate.setResultPath(self.result_path)
+			elif(isinstance(self.classifier, RfClassifier)):
+				print("rf")
 				self.evaluate.setResultPath(self.result_path)
 			elif(isinstance(self.classifier, ClusteredKnnClassifier)):
 				print("clustered knn")
