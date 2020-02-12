@@ -38,6 +38,7 @@ class EvaluateModule(object):
 		self.acc_samples = 0
 		self.err_samples = 0
 
+		print(self.result_path)
 		result_dataframe = DataSet.loadResult(self.result_path , self.iteration)
 		
 		#obtem numero de classes diferentes existentes no atributos classe
@@ -48,6 +49,7 @@ class EvaluateModule(object):
 
 		#posicao do atributo "classe" no vetor
 		posicao_classe = len(result_dataframe.values[0]) -2
+
 
 		for i in range(0,len(result_dataframe.values)):
 			self.total_samples+= 1

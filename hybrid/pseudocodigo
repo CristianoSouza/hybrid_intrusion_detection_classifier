@@ -1,0 +1,30 @@
+\begin{algorithm}[H]
+\KwIn{}
+\KwOut{}
+	
+	$outputs\_training \leftarrow$ Training model of ANN\;
+	$upper\_threshold$, $lower\_threshold \leftarrow$ Calculate thresholds of intermediate range(outputs\_training)\;
+	Building the KNN sample base\;
+
+	Para cada novo evento {\;
+		$prediction\_ann \leftarrow$ prediction with ANN (event) \tcc{Classifies the event in values from -1 to 1}
+
+		\If {$prediction\_ann$ $>$ $upper\_threshold$}  { 
+			Event is classified as malicious\;
+			Perform countermeasures\;
+		}\ElseIf{$prediction\_ann$ $<$ $lower\_threshold$}{
+            Event is classified as normal\;
+		} \Else {
+		    
+		    $prediction\_knn \leftarrow$ prediction with KNN (event) \tcc{Classifies the event at 1 for malicious and 0 for normal}
+
+		    \If {$prediction\_knn$ $=$ 1}  { 
+				Event is classified as malicious\;
+				Perform countermeasures\;
+			} \Else {
+				Event is classified as normal\;
+			}
+		}
+	} 
+    \caption{Hybrid ANN-KNN classification method}
+\end{algorithm}

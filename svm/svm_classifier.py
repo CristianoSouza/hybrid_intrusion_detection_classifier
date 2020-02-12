@@ -3,29 +3,25 @@ import sys
 import pandas
 import os
 import time
-from sklearn import svm
 
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../hybrid_intrusion_detection_classifier")
 from dataSet import DataSet
 
-class RnaClassifier(object):
+class SvmClassifier(object):
 	#conjunto de dados de treino
 	data_set = None
 	#conjunto de dados de teste
 	test_data_set = None
 	
-	rna = None
-	class_name = ""
+	svm = None
 	predictions = None
 	
 	#iteracao do processo de cross-validation
 	iteration = 0
 
-
-
 	training_time = 0
 	test_time = 0
-
+	class_name = ""
 	#pasta para serem salvos os arquivos de resultados, variavel pode ser setada no arquivo main.py
 	result_path = ""
 
@@ -34,25 +30,25 @@ class RnaClassifier(object):
 
 	def run(self):
 		training_time_start = time.time()
-		print("RUN RNA classifier")
-		self.rna.setDataSet(self.data_set)
-		self.rna.setTestDataSet(self.test_data_set)
+		print("RUN SVM classifier")
+		self.svm.setDataSet(self.data_set)
+		self.svm.setTestDataSet(self.test_data_set)
 		
 		#funcao para gerar o modelo e treina-lo
-		self.rna.generateModel()
+		self.svm.generateModel()
 
 		self.training_time = time.time() - training_time_start
 
 		test_time_start = time.time()
 		#funcao para realizar a classificacao dos exemplos
-		self.predictions = self.rna.predictClasses()
+		self.predictions = self.svm.predictClasses()
 		self.test_time = time.time() - test_time_start
 		self.saveResults()
 
 	#salva os resultados das classificacoes na pasta definida no arquivo main.py
 	def saveResults(self):
 		for i in range(0,len(self.predictions)):
-			self.test_data_set.set_value(i,self.class_name,self.predictions[i])
+			self.test_data_set.set_value(i, self.class_name,self.predictions[i])
 
 		DataSet.saveResults(self.result_path, self.iteration, self.test_data_set)	
 
@@ -68,11 +64,11 @@ class RnaClassifier(object):
 	def getTestDataSet(self):
 		return self.test_data_set
 
-	def setRna(self, rna):
-		self.rna = rna
+	def setSvm(self, svm):
+		self.svm = svm
 
-	def getRna(self):
-		return self.rna
+	def getSvm(self):
+		return self.svm
 
 	def setIteration(self, iteration):
 		self.iteration = iteration

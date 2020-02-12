@@ -21,6 +21,7 @@ class KnnClassifier(object):
 
 	#iteracao do processo de cross-validation
 	iteration = 0
+	class_name = ""
 	knn = None
 
 	def __init__(self):
@@ -48,7 +49,7 @@ class KnnClassifier(object):
 	def saveResults(self):
 		data_set = self.test_data_set[:] 
 		for i in range(0,len(self.predictions)):
-			data_set.set_value(i,' Label',self.predictions[i])
+			data_set.set_value(i,self.class_name,self.predictions[i])
 		DataSet.saveResults(self.result_path, self.iteration, data_set)
 
 	def setDataSet(self, data_set):
@@ -80,3 +81,6 @@ class KnnClassifier(object):
 
 	def getTestTime(self):
 		return self.test_time
+
+	def setClass_name(self, class_name):
+		self.class_name = class_name

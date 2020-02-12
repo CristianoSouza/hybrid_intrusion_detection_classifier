@@ -10,6 +10,8 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/rna")
 from rna_classifier import RnaClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/knn")
 from knn_classifier import KnnClassifier
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/svm")
+from svm_classifier import SvmClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/clusteredKnn")
 from clustered_knn_classifier import ClusteredKnnClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/clusteredDensityKnn")
@@ -32,7 +34,7 @@ class CrossValidation(object):
 	k = 1
 
 	file_path = ""
-
+	class_name = ""
 	#caminho da pasta onde serao salvos os resultados
 	result_path = ""
 	preprocessor = None
@@ -43,6 +45,7 @@ class CrossValidation(object):
 
 	def run(self):
 		self.classifier.setResultPath(self.result_path)
+		self.classifier.setClass_name(self.class_name)
 		self.foldExecution()
 
 	def foldExecution(self):
@@ -74,6 +77,7 @@ class CrossValidation(object):
 			#seta conjunto de dados original de teste e iteracao atual do cross-validation na classe de avaliacao
 			self.evaluate.setTestDataSet(self.teste_sub_data_set)
 			self.evaluate.setIteration(self.iteration)
+			self.evaluate.setClass_name(self.class_name)
 
 			#verifica quel o metodo de classificacao utilziado 
 			if(isinstance(self.classifier, RnaClassifier)):
@@ -81,6 +85,9 @@ class CrossValidation(object):
 				self.evaluate.setResultPath( self.result_path)
 			elif(isinstance(self.classifier, KnnClassifier)):
 				print("knn")
+				self.evaluate.setResultPath(self.result_path)
+			elif(isinstance(self.classifier, SvmClassifier)):
+				print("svm")
 				self.evaluate.setResultPath(self.result_path)
 			elif(isinstance(self.classifier, ClusteredKnnClassifier)):
 				print("clustered knn")
@@ -152,3 +159,5 @@ class CrossValidation(object):
 	def setK(self, k):
 		self.k = k
 
+	def setClass_name(self, class_name):
+		self.class_name = class_name
