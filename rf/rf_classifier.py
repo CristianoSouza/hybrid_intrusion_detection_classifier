@@ -1,4 +1,3 @@
-from rna_module import RnaModule
 import sys
 import pandas
 import os

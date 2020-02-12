@@ -29,7 +29,7 @@ class RfModule(object):
 	regressor = None
 
 	def __init__(self):
-		print("init svm module")
+		print("init RF module")
 
 	#funcao para criar a rna para abordagem simples
 	def generateModel(self):
