@@ -81,6 +81,7 @@ class CrossValidation(object):
 			self.evaluate.setIteration(self.iteration)
 			self.evaluate.setClass_name(self.class_name)
 
+			'''
 			#verifica quel o metodo de classificacao utilziado 
 			if(isinstance(self.classifier, RnaClassifier)):
 				print("rna")
@@ -100,9 +101,12 @@ class CrossValidation(object):
 			elif(isinstance(self.classifier, ClusteredDensityKnnClassifier)):
 				print("clustered density knn")
 				#self.evaluate.setResultPath(self.result_path)
-			elif(isinstance(self.classifier, HybridClassifier)):
+			'''	
+			if(isinstance(self.classifier, HybridClassifier)):
 				print("hybrid")
 				self.evaluate.setResultPath( self.result_path+"final_method_classification/")
+			else:
+				self.evaluate.setResultPath( self.result_path)
 
 			tempo_execucao = time.time() - tempo_inicio
 			self.evaluate.setTempoExecucao(tempo_execucao)
