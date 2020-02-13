@@ -1,5 +1,5 @@
 from sklearn.preprocessing import LabelEncoder
-#import keras.preprocessing.text
+import keras.preprocessing.text
 
 class Preprocessor(object):
 

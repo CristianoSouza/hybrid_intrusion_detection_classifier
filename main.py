@@ -8,6 +8,8 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/knn")
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/svm")
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/rf")
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/naive_bayes")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/lstm")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/dt")
 
 from cross_validation import CrossValidation
 from preprocessor import Preprocessor
@@ -17,11 +19,15 @@ from svm_classifier import SvmClassifier
 from naive_bayes_classifier import NaiveBayesClassifier
 from rf_classifier import RfClassifier
 from rna_classifier import RnaClassifier
+from lstm_classifier import LstmClassifier
 from hybrid_classifier import HybridClassifier
+from decision_tree_classifier import DecisionTreeClassifier
 from rna_module import RnaModule
 from knn_module import KnnModule
 from svm_module import SvmModule
 from rf_module import RfModule
+from decision_tree_module import DecisionTreeModule
+from lstm_module import LstmModule
 from naive_bayes_module import NaiveBayesModule
 from evaluate_module import EvaluateModule
 
@@ -42,10 +48,22 @@ rf = RfModule()
 rf_classifier = RfClassifier()
 rf_classifier.setRf(rf)
 
+#CONFIGURACAO DO RF
+dt = DecisionTreeModule()
+dt_classifier = DecisionTreeClassifier()
+dt_classifier.setDecisionTree(dt)
+
 #CONFIGURACAO DA NAIVEBAYES
 naive_bayes = NaiveBayesModule()
 naive_bayes_classifier = NaiveBayesClassifier()
 naive_bayes_classifier.setNaiveBayes(naive_bayes)
+
+#CONFIGURACAO DO LSTM
+lstm = LstmModule()
+lstm.setInputLength(20)
+lstm.setNumberExamples(1000)
+lstm_classifier = LstmClassifier()
+lstm_classifier.setLstm(lstm)
 
 
 #CONFIGURACAO DA REDE NEURAL 
@@ -72,6 +90,7 @@ hybrid_classifier.setKnn(knn)
 #PREPROCESSADOR PARA ATRIBUTOS CATEGORICOS
 preprocessor = Preprocessor()
 #preprocessor.setColumnsCategory(['protocol_type','service','flag'])
+#preprocessor.setColumnsCategory(['service','flag'])
 
 evaluate = EvaluateModule()
 
@@ -91,15 +110,18 @@ cross.setPreprocessor(preprocessor)
 #cross.setResultPath("results/faixa_hibrido/")
 #cross.setFilePath("../../Bases/MachineLearningCVE/DoS/")
 cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_iris/")
-#cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_20_nslkdd/")
+#cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_nslkdd_20attribute/")
 #cross.setResultPath("../results_ann-knn_cicids2017_ddos/completa/svm/")
 #cross.setResultPath("../results_ann-knn_NSL-KDD/20att/rf/")
-cross.setResultPath("../results_iris/completa/naive_bayes/")
+#cross.setResultPath("../results_iris/completa/naive_bayes/")
+cross.setResultPath("../results_iris/completa/dt/")
 #cross.setClassifier(rna_classifier)
 #cross.setClassifier(knn_classifier)
 #cross.setClassifier(svm_classifier)
 #cross.setClassifier(rf_classifier)
-cross.setClassifier(naive_bayes_classifier)
+#cross.setClassifier(naive_bayes_classifier)
+#cross.setClassifier(lstm_classifier)
+cross.setClassifier(dt_classifier)
 #cross.setClassifier(clustered_knn_classifier)
 #cross.setClassifier(clustered_density_knn_classifier)
 #cross.setClassifier(hybrid_classifier)
