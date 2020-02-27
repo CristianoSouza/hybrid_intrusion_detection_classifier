@@ -68,28 +68,28 @@ lstm_classifier.setLstm(lstm)
 
 #CONFIGURACAO DA REDE NEURAL 
 rna = RnaModule()
-rna.setNumberNeuronsImputLayer(78)
+rna.setNumberNeuronsImputLayer(41)
 rna.setActivationFunctionImputLayer("tanh")
-rna.setImputDimNeurons(78)
-rna.setNumberNeuronsHiddenLayer(78)
+rna.setImputDimNeurons(41)
+rna.setNumberNeuronsHiddenLayer(41)
 rna.setActivationFunctionHiddenLayer("tanh")
 rna.setNumberNeuronsOutputLayer(1)
 rna.setActivationFunctionOutputLayer("tanh")
 rna_classifier = RnaClassifier()
 rna_classifier.setRna(rna)
 
-'''
+
 #METODO HIBRIDO 
 hybrid_classifier = HybridClassifier()
 hybrid_classifier.setPercentilFaixaSup(25)
-hybrid_classifier.setPercentilFaixaInf(100)
+hybrid_classifier.setPercentilFaixaInf(75)
 hybrid_classifier.setRna(rna)
 hybrid_classifier.setKnn(knn)
 
-'''
+
 #PREPROCESSADOR PARA ATRIBUTOS CATEGORICOS
 preprocessor = Preprocessor()
-#preprocessor.setColumnsCategory(['protocol_type','service','flag'])
+preprocessor.setColumnsCategory(['protocol_type','service','flag'])
 #preprocessor.setColumnsCategory(['service','flag'])
 
 evaluate = EvaluateModule()
@@ -109,22 +109,24 @@ cross.setPreprocessor(preprocessor)
 
 #cross.setResultPath("results/faixa_hibrido/")
 #cross.setFilePath("../../Bases/MachineLearningCVE/DoS/")
-cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_iris/")
+#cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_iris/")
 #cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_nslkdd_20attribute/")
+cross.setFilePath("../../Bases/NSL-KDD/bases/attribute_selection/sub_bases_nslkdd_complete/")
 #cross.setResultPath("../results_ann-knn_cicids2017_ddos/completa/svm/")
 #cross.setResultPath("../results_ann-knn_NSL-KDD/20att/dt/")
 #cross.setResultPath("../results_iris/completa/naive_bayes/")
 #cross.setResultPath("../results_iris/completa/dt/")
+cross.setResultPath("../NOVOSEXPERIMENTOS/NSL-KDD/completa/hybP25N75-1/")
 #cross.setClassifier(rna_classifier)
 #cross.setClassifier(knn_classifier)
 #cross.setClassifier(svm_classifier)
 #cross.setClassifier(rf_classifier)
 #cross.setClassifier(naive_bayes_classifier)
 #cross.setClassifier(lstm_classifier)
-cross.setClassifier(dt_classifier)
+#cross.setClassifier(dt_classifier)
 #cross.setClassifier(clustered_knn_classifier)
 #cross.setClassifier(clustered_density_knn_classifier)
-#cross.setClassifier(hybrid_classifier)
+cross.setClassifier(hybrid_classifier)
 
 cross.setClass_name('classe')
 #cross.setClass_name(' Label')
