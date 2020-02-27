@@ -10,14 +10,6 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/rna")
 from rna_classifier import RnaClassifier
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/knn")
 from knn_classifier import KnnClassifier
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/svm")
-from svm_classifier import SvmClassifier
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/rf")
-from rf_classifier import RfClassifier
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/clusteredKnn")
-from clustered_knn_classifier import ClusteredKnnClassifier
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/clusteredDensityKnn")
-from clustered_density_knn_classifier import ClusteredDensityKnnClassifier
 
 
 class CrossValidation(object):
