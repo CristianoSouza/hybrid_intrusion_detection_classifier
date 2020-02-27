@@ -28,7 +28,6 @@ class HybridClassifier(object):
 	rna_classified_samples = []
 	class_name = ""
 	result_path = ""
-
 	training_time = 0
 	test_time = 0
 	limite_faixa_sup = 0
@@ -79,12 +78,12 @@ class HybridClassifier(object):
 		#realiza classificacao atraves da RNA
 		self.predictions_rna = self.rna.predict()
 		self.test_time = time.time() - test_time_start
-                
+
 		tamanho_predicao = len(self.predictions_rna)
 		tamanho_data_set = len(self.test_data_set.values)
 		#posicao do atributo "classe" no vetor
 		posicao_classe = len(self.test_data_set.values[0]) - 2
-  		
+
 		if (self.verifyClassesPredictions(predictions) == True):
 			#define os limites superiores e inferiores de acordo com os valores de percentil para definir a faixa intermediaria (valores de percentil sao setados no arquivo main.py)
 			self.upper_threshold = np.percentile(positivos_serie,self.percentil_faixa_sup)
