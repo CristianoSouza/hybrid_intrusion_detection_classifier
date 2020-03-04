@@ -53,6 +53,20 @@ class RnaModule(object):
 		early_stopping = EarlyStopping(monitor='loss',patience=20)
 		fit = self.model.fit(self.data_set_samples, self.data_set_labels, epochs=500, verbose=2, callbacks=[early_stopping])
 
+
+	def generateModelNovo(self):
+		self.model = Sequential()
+		self.model.add(Dense(self.number_neurons_hidden_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_hidden_layer))
+		self.model.add(Dense(self.number_neurons_output_layer, init='normal', activation=self.activation_function_output_layer))
+	
+		self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+		csv_logger = CSVLogger('training.log')
+		
+		#funcao para interromper treinamento quando o erro for suficientemente pequeno
+		early_stopping = EarlyStopping(monitor='loss',patience=20)
+		fit = self.model.fit(self.data_set_samples, self.data_set_labels, epochs=500, verbose=2, callbacks=[early_stopping])
+
+
 	#funcao para criar a rna para a abordagem hibrida
 	def generateHybridModel(self):
 		self.model = Sequential()

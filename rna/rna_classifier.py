@@ -39,7 +39,8 @@ class RnaClassifier(object):
 		self.rna.setTestDataSet(self.test_data_set)
 		
 		#funcao para gerar o modelo e treina-lo
-		self.rna.generateModel()
+		#self.rna.generateModel()
+		self.rna.generateModelNovo()
 
 		self.training_time = time.time() - training_time_start
 
