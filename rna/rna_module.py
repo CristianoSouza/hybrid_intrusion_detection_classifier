@@ -11,6 +11,8 @@ import keras.preprocessing.text
 from keras.preprocessing import sequence
 from keras import backend as K
 from keras.callbacks import EarlyStopping
+from ann_visualizer.visualize import ann_viz;
+from keras.models import model_from_json
 
 
 class RnaModule(object):
@@ -58,13 +60,55 @@ class RnaModule(object):
 		self.model = Sequential()
 		self.model.add(Dense(self.number_neurons_hidden_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_hidden_layer))
 		self.model.add(Dense(self.number_neurons_output_layer, init='normal', activation=self.activation_function_output_layer))
-	
+
 		self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+		
 		csv_logger = CSVLogger('training.log')
 		
 		#funcao para interromper treinamento quando o erro for suficientemente pequeno
 		early_stopping = EarlyStopping(monitor='loss',patience=20)
 		fit = self.model.fit(self.data_set_samples, self.data_set_labels, epochs=500, verbose=2, callbacks=[early_stopping])
+
+		model_json = model.to_json()
+		with open("model.json", "w") as json_file:
+		    json_file.write(model_json)
+
+		# serialize weights to HDF5
+		model.save_weights("model.h5")
+		print("Saved model to disk")
+
+		json_file = open('model.json', 'r')
+		loaded_model_json = json_file.read()
+		json_file.close()
+
+		model = model_from_json(loaded_model_json)
+
+		# load weights into new model
+		model.load_weights("model.h5")
+
+		ann_viz(model, title="Artificial Neural network - Model Visualization")
+		exit()
+
+	def generateHybridModelNovo(self):
+		self.model = Sequential()
+		self.model.add(Dense(self.number_neurons_hidden_layer, input_dim= self.imput_dim_neurons, init='normal', activation=self.activation_function_hidden_layer))
+		self.model.add(Dense(self.number_neurons_output_layer, init='normal', activation=self.activation_function_output_layer))
+	
+		self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+		csv_logger = CSVLogger('training.log')
+		#funcao para interromper treinamento quando o erro for suficientemente pequeno
+		early_stopping = EarlyStopping(monitor='loss', patience=20)
+
+		fit = self.model.fit(self.data_set_samples, self.data_set_labels, nb_epoch=500, verbose=2, callbacks=[early_stopping])
+
+		#obter valores da camada de saida da ultima iteracao do treinamento
+		get_3rd_layer_output = K.function([self.model.layers[0].input], [self.model.layers[2].output])
+		layer_output = get_3rd_layer_output([self.data_set_samples])[0]
+
+
+		predictions = self.model.predict_classes(self.data_set_samples)
+	
+		return layer_output, predictions, fit
 
 
 	#funcao para criar a rna para a abordagem hibrida

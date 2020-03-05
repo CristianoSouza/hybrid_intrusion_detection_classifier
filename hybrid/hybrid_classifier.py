@@ -46,7 +46,7 @@ class HybridClassifier(object):
 		training_time_start = time.time()
 
 		#funcao para gerar o modelo neural para a abordagem hibrida
-		outputs_training, predictions, history = self.rna.generateHybridModel()
+		outputs_training, predictions, history = self.rna.generateHybridModelNovo()
 		#print (np.percentile(outputs_training,75))
 		positivos = 0
 		negativos = 0
